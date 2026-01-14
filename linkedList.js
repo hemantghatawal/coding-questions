@@ -31,11 +31,29 @@ class LinkedList {
     this.head = newNode;
     this.length++;
   }
+
+  printList() {
+    const array = [];
+    let flag = true;
+    let currentNode = this.head;
+    while (flag) {
+      array.push(currentNode.value);
+      if (currentNode.next === null) {
+        flag = false;
+      }
+      currentNode = currentNode.next;
+    }
+
+    console.log(array);
+    return array;
+  }
 }
 
 const myLinkedList = new LinkedList(100);
 myLinkedList.append(10);
 myLinkedList.append(15);
 myLinkedList.prepend(3);
+
+myLinkedList.printList();
 
 console.log(myLinkedList);
