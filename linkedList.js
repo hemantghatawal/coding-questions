@@ -51,7 +51,7 @@ class LinkedList {
 
   remove(index) {
     if (index === 0) {
-      this.head = this.head.next;
+      return this.head = this.head.next;
     }
 
     if (index > this.length) {
