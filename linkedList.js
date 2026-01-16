@@ -32,15 +32,39 @@ class LinkedList {
     this.length++;
   }
 
+  insert(index = 0, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    if (index === 0) {
+      return this.prepend(value);
+    }
+
+    const newNode = new NewNode(value);
+    const leaderNode = this.traverseToIndex(index - 1);
+    newNode.next = leaderNode.next;
+    leaderNode.next = newNode;
+    console.log("leader node 👉", leaderNode);
+  }
+  
+  traverseToIndex(index) {
+    let i = 0;
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      if (i === index) {
+        return currentNode;
+      }
+      currentNode = currentNode.next;
+      i++;
+    }
+  }
+
   printList() {
     const array = [];
-    let flag = true;
     let currentNode = this.head;
-    while (flag) {
+    while (currentNode !== null) {
       array.push(currentNode.value);
-      if (currentNode.next === null) {
-        flag = false;
-      }
       currentNode = currentNode.next;
     }
 
@@ -55,5 +79,5 @@ myLinkedList.append(15);
 myLinkedList.prepend(3);
 
 myLinkedList.printList();
-
+console.log();
 console.log(myLinkedList);
