@@ -45,7 +45,8 @@ class LinkedList {
     const leaderNode = this.traverseToIndex(index - 1);
     newNode.next = leaderNode.next;
     leaderNode.next = newNode;
-    console.log("leader node 👉", leaderNode);
+    this.length++;
+    return this.printList();
   }
 
   traverseToIndex(index) {
