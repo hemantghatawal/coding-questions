@@ -8,7 +8,7 @@ class NewNode {
   }
 }
 
-class LinkedList {
+class DoublyLinkedList {
   constructor(value) {
     this.head = {
       value: value,
@@ -98,7 +98,7 @@ class LinkedList {
   }
 }
 
-const myLinkedList = new LinkedList(100);
+const myLinkedList = new DoublyLinkedList(100);
 myLinkedList.prepend(1);
 myLinkedList.append(10);
 myLinkedList.append(15);
