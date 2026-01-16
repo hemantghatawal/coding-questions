@@ -47,17 +47,15 @@ class LinkedList {
     leaderNode.next = newNode;
     console.log("leader node 👉", leaderNode);
   }
-  
+
   traverseToIndex(index) {
     let i = 0;
     let currentNode = this.head;
-    while (currentNode !== null) {
-      if (i === index) {
-        return currentNode;
-      }
+    while (i !== index) {
       currentNode = currentNode.next;
       i++;
     }
+    return currentNode;
   }
 
   printList() {
@@ -77,6 +75,7 @@ const myLinkedList = new LinkedList(100);
 myLinkedList.append(10);
 myLinkedList.append(15);
 myLinkedList.prepend(3);
+myLinkedList.insert(1, 300);
 
 myLinkedList.printList();
 console.log();
