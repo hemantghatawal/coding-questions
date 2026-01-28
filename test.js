@@ -1,9 +1,5 @@
+const a = [1,2,3]
+const b = [1,2,3]
 
-//classic stack overflow
-function foo (){
 
-
-    foo()
-}
-
-foo()
+console.log(a == b);
