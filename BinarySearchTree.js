@@ -56,11 +56,93 @@ class BinarySearchTree {
           return currentNode;
         }
       }
-      return false
+      return false;
     }
   }
 
   //REMOVE
+  remove(value) {
+    if (this.root === null) {
+      return false;
+    } else {
+      let currentNode = this.root;
+      let parentNode = null;
+
+      while (currentNode) {
+        if (value < currentNode.value) {
+          //left
+          parentNode = currentNode;
+          currentNode = currentNode.left;
+        } else if (value > currentNode.value) {
+          //right
+          parentNode = currentNode;
+          currentNode = currentNode.right;
+        } else if (currentNode.value === value) {
+          // we have a match, get to work
+
+          // Option 1: No right child:
+          if (currentNode.right === null) {
+            if (parentNode === null) {
+              this.root = currentNode.left;
+            } else {
+              // if parent > current value, make current left child a child of parent
+              if (currentNode.value < parentNode.value) {
+                parentNode.left = currentNode.left;
+
+                // if parent < current value, make left child a right child of parent
+              } else if (currentNode.value > parentNode.value) {
+                parentNode.right = currentNode.left;
+              }
+            }
+
+            // Option 2: Right child which doesnt have a left child
+          } else if (currentNode.right.left === null) {
+            if (parentNode === null) {
+              this.root = currentNode.left;
+            } else {
+              currentNode.right.left = currentNode.left;
+
+              //if parent > current, make right child of the left the parent
+              if (currentNode.value < parentNode.value) {
+                parentNode.left = currentNode.right;
+
+                //if parent < current, make right child a right child of the parent
+              } else if (currentNode.value > parentNode.value) {
+                parentNode.right = currentNode.right;
+              }
+            }
+
+            // Option 3: Right child that has a left child
+          } else {
+            // find the Right child's left most child
+            let leftmost = currentNode.right.left;
+            let leftmostParent = currentNode.right;
+            while (leftmost.left !== null) {
+              leftmostParent = leftmost;
+              leftmost = leftmost.left;
+            }
+
+            // Parent's left subtree is now leftmost's right subtree
+            leftmostParent.left = leftmost.right;
+            leftmostParent.left = currentNode.left;
+            leftmost.right = currentNode.right;
+            if (parentNode === null) {
+              this.root = leftmost;
+            } else {
+              if (currentNode.value < parentNode.value) {
+                parentNode.left = leftmost;
+              } else if (currentNode.value > parentNode.value) {
+                parentNode.right = leftmost;
+              }
+            }
+          }
+
+          return true;
+        }
+      }
+      return false;
+    }
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -68,11 +150,11 @@ tree.insert(9);
 tree.insert(4);
 tree.insert(6);
 tree.insert(20);
-tree.insert(170);
+tree.insert(1);
 tree.insert(15);
 tree.insert(170);
 console.log(JSON.stringify(traverse(tree.root)));
-console.log(tree.loopkup(170));
+console.log(tree.loopkup(1));
 
 //      9
 //   4      20
