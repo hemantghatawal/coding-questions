@@ -60,7 +60,7 @@ function findMostRepeatedDeepNested(input) {
   let maxValue = 0;
 
   for (let key in count) {
-    if (count[key] > maxValue) {
+    if (count[key] > maxValue) { // use >= if you want to return the max value then use it
       maxValue = count[key];
       maxKey = key;
     }
@@ -69,5 +69,5 @@ function findMostRepeatedDeepNested(input) {
   return { [maxKey]: maxValue };
 }
 
-const arr = [1, [2, [2, 3, [3, 3]], 1], 2];
+const arr = [1, [2, [2, 3, [3, 3]], 1, 4, 4, 4, 5, 5, 5, 5, 5], 2];
 console.log(findMostRepeatedDeepNested(arr));
