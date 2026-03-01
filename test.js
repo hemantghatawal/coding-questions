@@ -1,21 +1,29 @@
-export default function debounce(func, wait = 0) {
-  let timeoutID = null;
-  return function (...args) {
-    const context = this;
-    clearTimeout(timeoutID);
+function pathsToTree(paths) {
+  const tree = {};
 
-    timeoutID = setTimeout(function () {
-      timeoutID = null;
-      func.apply(context, args);
-    }, wait);
-  };
+  for (const path of paths) {
+    const parts = path.split("/");
+    let current = tree;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+
+      if (!current[part]) {
+        // If last item → file → null
+        current[part] = {};
+      }
+      current = current[part] ;
+    }
+  }
+
+  return tree;
 }
 
-let i = 0;
-function increment() {
-  i++;
-}
-const debouncedIncrement = debounce(increment, 10000);
+const paths = [
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helpers.js",
+  "public/index.html",
+];
 
-// t = 0: Call debouncedIncrement().
-debouncedIncrement();
+console.log(JSON.stringify(pathsToTree(paths), null, 2));
