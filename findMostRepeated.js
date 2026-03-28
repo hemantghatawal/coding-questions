@@ -1,3 +1,4 @@
+// works only in one level nested arrays ->
 function findMostRepeated(input) {
   const count = {};
   // i need to check if it's an array or value
@@ -25,17 +26,14 @@ function findMostRepeated(input) {
 
   console.log(count);
   // from the count obj get the max value
-  let maxKey = null;
-  let maxValue = 0;
-
+  let maxKey = Object.keys(count)[0];
   for (let key in count) {
-    if (count[key] > maxValue) {
-      maxValue = count[key];
+    if (count[key] > count[maxKey]) {
       maxKey = key;
     }
   }
 
-  return { [maxKey]: maxValue };
+  return { [maxKey]: count[maxKey] };
 }
 
 // const nestedArr = [[1, 2, 2], [3, 3, 1], 2]; // => {2: 3}
@@ -56,17 +54,15 @@ function findMostRepeatedDeepNested(input) {
 
   traverse(input);
 
-  let maxKey = null;
-  let maxValue = 0;
-
+  let maxKey = Object.keys(count)[0];
   for (let key in count) {
-    if (count[key] > maxValue) { // use >= if you want to return the max value then use it
-      maxValue = count[key];
+    if (count[key] > count[maxKey]) {
+      // use >= if you want to return the max value
       maxKey = key;
     }
   }
 
-  return { [maxKey]: maxValue };
+  return { [maxKey]: count[maxKey] };
 }
 
 const arr = [1, [2, [2, 3, [3, 3]], 1, 4, 4, 4, 5, 5, 5, 5, 5], 2];
