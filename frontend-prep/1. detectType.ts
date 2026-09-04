@@ -1,5 +1,10 @@
-function detectType(value: any): string{
-    return typeof value
+function detectType(value: any): string {
+  if (value == null) {
+    return `${value}`;
+  }
+  const proto = Object.getPrototypeOf(value)?.constructor?.name.toLowerCase()
+  console.log("proto -> ", proto)
+  return proto;
 }
 
-console.log(detectType([1,2,3,4]))
+console.log(detectType("HGello"));
