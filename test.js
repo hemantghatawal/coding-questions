@@ -1,15 +1,20 @@
-// Write a function makeTimer() that returns a function which, each time it's called, logs how much time has passed since makeTimer() was first called. (Concept only — this is literally how simple animation loops track elapsed time.)
+// https://leetcode.com/problems/palindrome-number/description/
+var isPalindrome = function(x) {
+    if(x < 0 ) return false;
 
-function makeTimer(){
-    const timer = Date.now()
-    
-    return function (){
-        let elapsed = Date.now() - timer
-        console.log(elapsed)
-        return elapsed
+    let original = x;
+    let reversed = 0;
+
+    while(x > 0){
+        const lastDigit = x % 10;
+        console.log("lastDigit => ", lastDigit)
+        reversed = (reversed* 10) + lastDigit
+        x = Math.floor(x / 10)
+
+        console.log(x)
     }
-}
+    return original === reversed
+};
 
-const timer = makeTimer()
-timer()
-timer()
+
+console.log(isPalindrome(10101))
