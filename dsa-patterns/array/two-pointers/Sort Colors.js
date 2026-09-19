@@ -15,7 +15,7 @@ var sortColors = function (nums) {
       nums[right] = nums[left];
       nums[left] = temp;
       left++;
-      right++
+      right++ // just need to shift the right also when I thought
     } else {
       right++;
     }
