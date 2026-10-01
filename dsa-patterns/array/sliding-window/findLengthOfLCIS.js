@@ -3,24 +3,15 @@
  * @return {number}
  */
 var findLengthOfLCIS = function (nums) {
-  if (nums.length <= 1) return 1;
+  let ans = 0;
+  let anchor = 0;
 
-  let LCIS = 1;
-  let left = 0;
-
-  for (let right = 1; right < nums.length; right++) {
-    left = right - 1;
-    right = left + 1;
-    console.log("left ", left);
-    if (nums[left] === nums[right]) LCIS = 1;
-    while (nums[right - 1] < nums[right]) {
-      console.log(nums[right - 1], nums[right]);
-      LCIS = Math.max(LCIS, right - left + 1);
-      right++;
-    }
+  for (let i = 0; i < nums.length; ++i) {
+    if (i > 0 && nums[i - 1] >= nums[i]) anchor = i;
+    ans = Math.max(ans, i - anchor + 1);
   }
 
-  return LCIS;
+  return ans;
 };
 
 const input = [1, 3, 5, 4, 7, 1, 2, 3, 4, 5, 1, 5, 10, 100, 1];
