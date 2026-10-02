@@ -5,25 +5,27 @@
  * @return {number}
  */
 var maxScore = function (cardPoints, k) {
-  let sum = 0;
-  let left = 0;
-  let right = cardPoints.length - 1;
-  let count = k;
-  while (count > 0) {
-    if (cardPoints[right] >= cardPoints[left]) {
-      sum += cardPoints[right];
-      right--;
-    } else {
-      sum += cardPoints[left];
-      left++;
-    }
-    count--;
+  let totalSum = 0;
+  for (let i = 0; i < cardPoints.length; i++) {
+    totalSum += cardPoints[i];
   }
 
-  return sum;
+  let window = cardPoints.length - k;
+  let sum = 0;
+  for (let i = 0; i < window; i++) {
+    sum += cardPoints[i];
+  }
+
+  let minSum = sum
+  for (let i = window; i < cardPoints.length; i++) {
+    sum = sum + cardPoints[i] - cardPoints[i - window];
+    if (sum < minSum) minSum = sum;
+  }
+
+  return totalSum - minSum;
 };
 
-const cardPoints = [11,49,100,20,86,29,72]
-const k = 4;
+const cardPoints = [9,7,7,9,7,7,9] //[11, 49, 100, 20, 86, 29, 72];
+const k = 7 //4;
 
 console.log(maxScore(cardPoints, k));
