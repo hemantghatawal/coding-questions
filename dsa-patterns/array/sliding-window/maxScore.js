@@ -5,24 +5,34 @@
  * @return {number}
  */
 var maxScore = function (cardPoints, k) {
-  let totalSum = 0;
-  for (let i = 0; i < cardPoints.length; i++) {
-    totalSum += cardPoints[i];
-  }
+    const n = cardPoints.length;
 
-  let window = cardPoints.length - k;
-  let sum = 0;
-  for (let i = 0; i < window; i++) {
-    sum += cardPoints[i];
-  }
+    let totalSum = 0;
+    for (const card of cardPoints) {
+        totalSum += card;
+    }
 
-  let minSum = sum
-  for (let i = window; i < cardPoints.length; i++) {
-    sum = sum + cardPoints[i] - cardPoints[i - window];
-    if (sum < minSum) minSum = sum;
-  }
+    const windowSize = n - k;
 
-  return totalSum - minSum;
+    // Edge case: k === n
+    if (windowSize === 0) return totalSum;
+
+    let windowSum = 0;
+
+    // First window
+    for (let i = 0; i < windowSize; i++) {
+        windowSum += cardPoints[i];
+    }
+
+    let minWindowSum = windowSum;
+
+    // Sliding window
+    for (let i = windowSize; i < n; i++) {
+        windowSum += cardPoints[i] - cardPoints[i - windowSize];
+        minWindowSum = Math.min(minWindowSum, windowSum);
+    }
+
+    return totalSum - minWindowSum;
 };
 
 const cardPoints = [9,7,7,9,7,7,9] //[11, 49, 100, 20, 86, 29, 72];
